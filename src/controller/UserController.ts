@@ -8,12 +8,11 @@ export class UserController {
 
   static newUser = async (req: Request, res: Response) => {
     //Get parameters from the body
-    let { username, password, email, isPublic } = req.body;
+    let { username, password, email } = req.body;
     let user = new User();
     user.username = username;
     user.password = password;
     user.email = email;
-    user.isPublic = isPublic;
 
     //Validate if the parameters are ok
     const errors = await validate(user);
