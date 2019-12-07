@@ -1,4 +1,3 @@
-import { Photo } from './Photo';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
@@ -30,8 +29,8 @@ export class User {
   })
   avatarUrl: string;
 
-  @OneToMany(type => Photo, photo => photo.user)
-  photos: Photo[];
+  // @OneToMany(type => Photo, photo => photo.user)
+  // photos: Photo[];
 
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);
