@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { Prediction } from './Prediction';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -8,7 +7,7 @@ export class User {
   id: number;
 
   @Column({
-    length: 20
+    length: 20,
   })
   username: string;
 
@@ -20,12 +19,9 @@ export class User {
 
   @Column({
     name: 'avatar_url',
-    nullable: true
+    nullable: true,
   })
   avatarUrl: string;
-
-  @OneToMany(type => Prediction, prediction => prediction.user)
-  predictions: Prediction[];
 
   hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);
