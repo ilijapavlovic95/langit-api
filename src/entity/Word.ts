@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Log } from './Log';
+import { Translation } from './Translation';
 
 @Entity()
 export class Word {
@@ -9,8 +10,8 @@ export class Word {
   @Column()
   english: string;
 
-  @Column()
-  translation: string;
+  @OneToMany((type) => Translation, (translation) => translation.word)
+  translations: Translation[];
 
   @Column({ type: 'timestamp' })
   timestamp: Date;

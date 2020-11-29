@@ -115,7 +115,7 @@ export class NoteController {
           .status(400)
           .send(Util.formResponseObject('Note does not exist.', 4000));
       } else {
-        noteRepository.delete(noteId);
+        await noteRepository.delete(noteId);
         res.status(200).send(Util.formResponseObject({ isDeleted: true }));
       }
     } catch (error) {
