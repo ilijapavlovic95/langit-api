@@ -12,6 +12,9 @@ export class WordController {
 
       const words: Word[] = await wordRepository.find({
         relations: ['translations'],
+        order: {
+          timestamp: 'DESC',
+        },
       });
       // for (const word of words) {
       //   word.translations = await translationRepository.find({
@@ -65,11 +68,15 @@ export class WordController {
         translationObject
       );
 
-      savedWord.translations = await translationRepository.find({
-        where: { wordId: savedWord.id },
+      const wordFromDB = await wordRepository.findOne(savedWord.id, {
+        relations: ['translations'],
       });
 
-      res.status(200).send(Util.formResponseObject(savedWord));
+      // savedWord.translations = await translationRepository.find({
+      //   where: { wordId: savedWord.id },
+      // });
+
+      res.status(200).send(Util.formResponseObject(wordFromDB));
     } catch (error) {
       console.error(error);
       res.status(500).send();
