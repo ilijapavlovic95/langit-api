@@ -8,7 +8,16 @@ export class WordController {
   static getAll = async (req: Request, res: Response) => {
     try {
       const wordRepository = getRepository(Word);
-      const words: Word[] = await wordRepository.find();
+      const translationRepository = getRepository(Translation);
+
+      const words: Word[] = await wordRepository.find({
+        relations: ['translations'],
+      });
+      // for (const word of words) {
+      //   word.translations = await translationRepository.find({
+      //     where: { wordId: word.id },
+      //   });
+      // }
 
       res.status(200).send(Util.formResponseObject(words));
     } catch (error) {
